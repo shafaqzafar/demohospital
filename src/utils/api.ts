@@ -1,7 +1,7 @@
 const rawBase = (import.meta as any).env?.VITE_API_URL as string | undefined
 const baseURL = rawBase
-  ? (/^https?:/i.test(rawBase) ? rawBase : `http://127.0.0.1:4000${rawBase}`)
-  : 'http://127.0.0.1:4000/api'
+  ? (/^https?:/i.test(rawBase) ? rawBase : `https://demohospital-backend.healthspire.org${rawBase}`)
+  : 'https://demohospital-backend.healthspire.org/api'
 
 function getToken(path?: string){
   try {
