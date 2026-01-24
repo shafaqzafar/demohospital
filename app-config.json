@@ -1,4 +1,4 @@
 {
-  "remoteApiBaseUrl": "http://192.168.1.38:4000/api",
+  "remoteApiBaseUrl": "https://demohospital-backend.healthspire.org/api",
   "startLocalBackend": false
 }
