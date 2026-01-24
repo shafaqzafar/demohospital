@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hospital Login Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .login-form { border: 1px solid #ccc; padding: 20px; margin: 10px 0; border-radius: 5px; }
+        .success { color: green; }
+        .error { color: red; }
+        input { margin: 5px; padding: 8px; }
+        button { padding: 10px 20px; margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Hospital Module Login Demo</h1>
+    
+    <div class="login-form">
+        <h3>Finance Login</h3>
+        <input type="text" id="finance-username" value="finance" readonly>
+        <input type="password" id="finance-password" value="123" readonly>
+        <button onclick="login('finance')">Login Finance</button>
+        <div id="finance-result"></div>
+    </div>
+    
+    <div class="login-form">
+        <h3>Reception Login</h3>
+        <input type="text" id="reception-username" value="recep" readonly>
+        <input type="password" id="reception-password" value="123" readonly>
+        <button onclick="login('reception')">Login Reception</button>
+        <div id="reception-result"></div>
+    </div>
+    
+    <div class="login-form">
+        <h3>Admin Login</h3>
+        <input type="text" id="admin-username" value="admin" readonly>
+        <input type="password" id="admin-password" value="123" readonly>
+        <button onclick="login('admin')">Login Admin</button>
+        <div id="admin-result"></div>
+    </div>
+
+    <script>
+        async function login(type) {
+            const username = document.getElementById(`${type}-username`).value;
+            const password = document.getElementById(`${type}-password`).value;
+            const resultDiv = document.getElementById(`${type}-result`);
+            
+            try {
+                const response = await fetch('http://localhost:4000/api/hospital/users/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    resultDiv.innerHTML = `<div class="success">✅ Login Successful!<br>
+                    User: ${data.user.username} (${data.user.role})<br>
+                    Token: ${data.token.substring(0, 50)}...</div>`;
+                } else {
+                    resultDiv.innerHTML = `<div class="error">❌ Login Failed: ${data.error || data.message}</div>`;
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `<div class="error">❌ Error: ${error.message}</div>`;
+            }
+        }
+    </script>
+</body>
+</html>
