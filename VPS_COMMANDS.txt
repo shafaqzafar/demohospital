@@ -1,0 +1,123 @@
+# ==========================================
+# VPS DEPLOYMENT COMMANDS FOR DEMOHOSPITAL
+# ==========================================
+# Run these commands on your VPS: root@srv1168311:/var/www/demohospital#
+
+# STEP 1: Pull latest changes with deployment files
+git pull origin main
+
+# STEP 2: Make deploy script executable
+chmod +x deploy.sh
+
+# STEP 3: Run deployment script
+./deploy.sh
+
+# ==========================================
+# ALTERNATIVE: MANUAL DEPLOYMENT COMMANDS
+# ==========================================
+# If deploy.sh fails, run these commands manually:
+
+# Kill existing processes
+sudo pkill -f "node.*4000" || true
+sudo pkill -f "npm.*dev" || true
+
+# Install dependencies
+npm install
+cd backend && npm install && cd ..
+
+# Build project
+cd backend && npm run build && cd ..
+npm run build:front
+
+# Setup production environment
+cp backend/.env.production backend/.env
+
+# Install PM2
+npm install -g pm2
+
+# Start backend with PM2
+pm2 start backend/dist/server.js --name "demohospital-backend" --env production
+pm2 save
+pm2 startup
+
+# Setup Nginx
+sudo cp nginx.conf /etc/nginx/sites-available/demohospital
+sudo ln -sf /etc/nginx/sites-available/demohospital /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+
+# Create production users
+node backend/create_production_users.js
+
+# ==========================================
+# USEFUL COMMANDS AFTER DEPLOYMENT
+# ==========================================
+
+# Check PM2 status
+pm2 status
+
+# View PM2 logs
+pm2 logs
+
+# Restart backend
+pm2 restart demohospital-backend
+
+# Check Nginx status
+sudo systemctl status nginx
+
+# Test Nginx configuration
+sudo nginx -t
+
+# Reload Nginx
+sudo systemctl reload nginx
+
+# Check MongoDB status
+sudo systemctl status mongod
+
+# ==========================================
+# LOGIN CREDENTIALS
+# ==========================================
+
+# Hospital Module:
+# Admin: username: admin, password: 123
+# Finance: username: finance, password: 123
+# Reception: username: recep, password: 123
+# Doctors: username: umar, password: 123
+# Doctors: username: ibad, password: 123
+
+# Lab Module:
+# Lab Admin: username: lab, password: 123
+
+# Pharmacy Module:
+# Pharmacy Admin: username: admin, password: 123
+
+# Diagnostic Module:
+# Diagnostic Admin: username: diagnostic, password: 123
+
+# ==========================================
+# URLS AFTER DEPLOYMENT
+# ==========================================
+
+# Frontend: https://demohospital.healthspire.org
+# Backend API: https://demohospital-backend.healthspire.org
+
+# ==========================================
+# TROUBLESHOOTING
+# ==========================================
+
+# If port 4000 is already in use:
+sudo lsof -i :4000
+sudo kill -9 <PID>
+
+# If MongoDB connection fails:
+sudo systemctl status mongod
+sudo systemctl start mongod
+sudo systemctl enable mongod
+
+# If Nginx fails:
+sudo nginx -t
+sudo systemctl status nginx
+sudo systemctl restart nginx
+
+# If PM2 fails:
+pm2 delete all
+pm2 start backend/dist/server.js --name "demohospital-backend" --env production
