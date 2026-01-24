@@ -44,7 +44,7 @@ export default function Aesthetic_Login() {
     }
   }
 
-  const logoSrc = `${(import.meta as any).env?.BASE_URL || '/'}hospital_icon.jpeg`
+  const logoSrc = "https://demohospital.healthspire.org/hospital_icon.ico"
 
   return (
     <div className={theme === 'dark' ? 'aesthetic-scope dark' : 'aesthetic-scope'}>

@@ -17,7 +17,7 @@ export default function Diagnostic_Login() {
     return () => { try { html.classList.remove('dark') } catch {} }
   }, [theme])
 
-  const logoSrc = `${(import.meta as any).env?.BASE_URL || '/'}hospital_icon.jpeg`
+  const logoSrc = "https://demohospital.healthspire.org/hospital_icon.ico"
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
