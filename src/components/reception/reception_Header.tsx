@@ -7,7 +7,8 @@ export default function Reception_Header({ onToggleSidebar, onToggleTheme, theme
   const navigate = useNavigate()
   function handleLogout(){
     try { localStorage.removeItem('reception.session') } catch {}
-    navigate('/reception/login')
+    // Don't remove isAuthenticated, only remove module-specific data
+    navigate('/modules')
   }
   const user = (()=>{ try { return JSON.parse(localStorage.getItem('reception.session')||'{}') } catch { return {} } })()
   function handleToggleTheme(){

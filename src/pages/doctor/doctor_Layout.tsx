@@ -18,9 +18,9 @@ export default function Doctor_Layout() {
   }, [theme])
   useEffect(() => {
     try {
-      const raw = localStorage.getItem('doctor.session')
-      if (!raw) navigate('/hospital/login')
-    } catch { navigate('/hospital/login') }
+      const isAuthenticated = localStorage.getItem('isAuthenticated')
+      if (!isAuthenticated) navigate('/modules')
+    } catch { navigate('/modules') }
   }, [navigate])
   const shell = theme === 'dark' ? 'min-h-dvh bg-slate-900 text-slate-100' : 'min-h-dvh bg-slate-50 text-slate-900'
   return (

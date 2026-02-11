@@ -67,8 +67,9 @@ export default function Pharmacy_Sidebar({ collapsed }: Props) {
       localStorage.removeItem('pharmacy.user')
       localStorage.removeItem('pharma_user')
       localStorage.removeItem('pharmacy.token')
+      // Don't remove isAuthenticated, only remove module-specific data
     } catch {}
-    navigate('/pharmacy/login')
+    navigate('/modules')
   }
 
   useEffect(() => {

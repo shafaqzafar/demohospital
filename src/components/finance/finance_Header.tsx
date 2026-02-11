@@ -7,7 +7,8 @@ export default function Finance_Header({ onToggleSidebar, onToggleTheme, theme }
   const navigate = useNavigate()
   function handleLogout(){
     try { localStorage.removeItem('finance.session') } catch {}
-    navigate('/finance/login')
+    // Don't remove isAuthenticated, only remove module-specific data
+    navigate('/modules')
   }
   const user = (()=>{ try { return JSON.parse(localStorage.getItem('finance.session')||'{}') } catch { return {} } })()
   function handleToggleTheme(){

@@ -1,5 +1,8 @@
 ﻿import { Route, Routes } from 'react-router-dom'
 import Home from './pages/Home'
+import MainLogin from './pages/MainLogin'
+import ModulesPage from './pages/ModulesPage'
+import ProtectedRoute from './components/ProtectedRoute'
 import Hospital_Login from './pages/hospital/hospital_Login'
 import Hospital_Layout from './pages/hospital/hospital_Layout'
 import Hospital_IPDDashboard from './pages/hospital/hospital_ipddashboard'
@@ -187,10 +190,14 @@ import Aesthetic_DoctorPayouts from './pages/aesthetic/aesthetic_DoctorPayouts'
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/hospital/login" element={<Hospital_Login />} />
-      <Route path="/aesthetic/login" element={<Aesthetic_Login />} />
-      <Route path="/hospital" element={<Hospital_Layout />}>
+      <Route path="/" element={<MainLogin />} />
+      <Route path="/login" element={<MainLogin />} />
+      <Route path="/modules" element={<ModulesPage />} />
+      <Route path="/hospital" element={
+        <ProtectedRoute>
+          <Hospital_Layout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Hospital_Dashboard />} />
         <Route path="today-tokens" element={<Hospital_TodayTokens />} />
         <Route path="token-history" element={<Hospital_TokenHistory />} />
@@ -252,7 +259,11 @@ export default function App() {
         <Route path="corporate/payments" element={<Hospital_CorporatePayments />} />
         <Route path="corporate/reports" element={<Hospital_CorporateReports />} />
       </Route>
-      <Route path="/aesthetic" element={<Aesthetic_Layout />}>
+      <Route path="/aesthetic" element={
+        <ProtectedRoute>
+          <Aesthetic_Layout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Aesthetic_Dashboard />} />
         <Route path="token-generator" element={<Aesthetic_TokenGeneratorPage />} />
         <Route path="token-history" element={<Aesthetic_TokenHistoryPage />} />
@@ -276,8 +287,11 @@ export default function App() {
         <Route path="consent-templates" element={<Aesthetic_ConsentTemplates />} />
         <Route path="settings" element={<Aesthetic_Settings />} />
       </Route>
-      <Route path="/diagnostic/login" element={<Diagnostic_Login />} />
-      <Route path="/diagnostic" element={<Diagnostic_Layout />}>
+      <Route path="/diagnostic" element={
+        <ProtectedRoute>
+          <Diagnostic_Layout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Diagnostic_Dashboard />} />
         <Route path="token-generator" element={<Diagnostic_TokenGenerator />} />
         <Route path="tests" element={<Diagnostic_Tests />} />
@@ -289,7 +303,11 @@ export default function App() {
         <Route path="audit-logs" element={<Diagnostic_AuditLogs />} />
         <Route path="settings" element={<Diagnostic_Settings />} />
       </Route>
-      <Route path="/doctor" element={<Doctor_Layout />}>
+      <Route path="/doctor" element={
+        <ProtectedRoute>
+          <Doctor_Layout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Doctor_Dashboard />} />
         <Route path="patients" element={<Doctor_Patients />} />
         <Route path="patient-search" element={<Hospital_SearchPatients />} />
@@ -300,8 +318,11 @@ export default function App() {
         <Route path="notifications" element={<Doctor_Notifications />} />
         <Route path="settings" element={<Doctor_Settings />} />
       </Route>
-      <Route path="/lab/login" element={<Lab_Login />} />
-      <Route path="/lab" element={<Lab_Layout />}>
+      <Route path="/lab" element={
+        <ProtectedRoute>
+          <Lab_Layout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Lab_Dashboard />} />
         <Route path="orders" element={<Lab_Orders />} />
         <Route path="tracking" element={<Lab_Tracking />} />
@@ -332,8 +353,11 @@ export default function App() {
         <Route path="bb/receivers" element={<Lab_BB_Receivers />} />
         {/* BB reports-labels and settings routes removed */}
       </Route>
-      <Route path="/pharmacy/login" element={<Pharmacy_Login />} />
-      <Route path="/pharmacy" element={<Pharmacy_Layout />}>
+      <Route path="/pharmacy" element={
+        <ProtectedRoute>
+          <Pharmacy_Layout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Pharmacy_Dashboard />} />
         <Route path="pos" element={<Pharmacy_POS />} />
         <Route path="prescriptions" element={<Pharmacy_Prescriptions />} />
@@ -365,8 +389,11 @@ export default function App() {
         <Route path="manager-cash-count" element={<Pharmacy_ManagerCashCount />} />
         <Route path="returns" element={<Pharmacy_CustomerReturns />} />
       </Route>
-      <Route path="/finance/login" element={<Finance_Login />} />
-      <Route path="/finance" element={<Finance_Layout />}>
+      <Route path="/finance" element={
+        <ProtectedRoute>
+          <Finance_Layout />
+        </ProtectedRoute>
+      }>
         <Route index element={<Finance />} />
         <Route path="add-expense" element={<Finance_AddExpense />} />
         <Route path="transactions" element={<Finance_Transactions />} />
@@ -387,8 +414,11 @@ export default function App() {
         <Route path="business-day" element={<Finance_BusinessDay />} />
         <Route path="liabilities" element={<Finance_Liabilities />} />
       </Route>
-      <Route path="/reception/login" element={<Reception_Login />} />
-      <Route path="/reception" element={<Reception_Layout />}>
+      <Route path="/reception" element={
+        <ProtectedRoute>
+          <Reception_Layout />
+        </ProtectedRoute>
+      }>
         <Route path="token-generator" element={<Hospital_TokenGenerator />} />
         <Route path="today-tokens" element={<Hospital_TodayTokens />} />
         <Route path="ipd-billing" element={<Reception_IPDBilling />} />

@@ -49,7 +49,8 @@ export default function Lab_Sidebar({ collapsed = false }: { collapsed?: boolean
   const logout = async () => {
     try { await labApi.logoutUser() } catch {}
     try { localStorage.removeItem('lab.session') } catch {}
-    navigate('/lab/login')
+    // Don't remove isAuthenticated, only remove module-specific data
+    navigate('/modules')
   }
 
   useEffect(()=>{

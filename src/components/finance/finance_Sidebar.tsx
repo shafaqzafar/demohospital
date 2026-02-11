@@ -29,7 +29,8 @@ export default function Finance_Sidebar({ collapsed = false }: { collapsed?: boo
       await hospitalApi.logoutHospitalUser(u?.username||'finance')
     } catch {}
     try { localStorage.removeItem('finance.session') } catch {}
-    navigate('/finance/login')
+    // Don't remove isAuthenticated, only remove module-specific data
+    navigate('/modules')
   }
   return (
     <aside

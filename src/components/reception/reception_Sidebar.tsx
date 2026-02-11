@@ -25,7 +25,8 @@ export default function Reception_Sidebar({ collapsed = false }: { collapsed?: b
       await hospitalApi.logoutHospitalUser(u?.username||'reception')
     } catch {}
     try { localStorage.removeItem('reception.session') } catch {}
-    navigate('/reception/login')
+    // Don't remove isAuthenticated, only remove module-specific data
+    navigate('/modules')
   }
   return (
     <aside

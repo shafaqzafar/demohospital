@@ -61,7 +61,7 @@ export default function Pharmacy_Header({ onToggleSidebar, onToggleTheme, theme 
       })
     } catch {}
     try { localStorage.removeItem('user'); localStorage.removeItem('pharmacy.user'); localStorage.removeItem('pharmacy.token') } catch {}
-    navigate('/pharmacy/login')
+    navigate('/modules')
   }
   return (
     <header className="sticky top-0 z-10 h-16 w-full border-b border-slate-200 bg-white/90 backdrop-blur">

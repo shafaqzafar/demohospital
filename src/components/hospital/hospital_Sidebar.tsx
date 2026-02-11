@@ -287,7 +287,8 @@ export default function Hospital_Sidebar({ collapsed = false }: { collapsed?: bo
               await hospitalApi.logoutHospitalUser(u?.username||'')
             } catch {}
             try { localStorage.removeItem('hospital.session') } catch {}
-            navigate('/hospital/login')
+            // Don't remove isAuthenticated, only remove module-specific data
+            navigate('/modules')
           }}
           className="w-full inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium"
           style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.14)' }}

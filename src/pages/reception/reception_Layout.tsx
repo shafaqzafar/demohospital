@@ -11,9 +11,9 @@ export default function Reception_Layout(){
   const navigate = useNavigate()
   useEffect(()=>{
     try {
-      const sess = localStorage.getItem('reception.session')
-      if (!sess) navigate('/reception/login')
-    } catch { navigate('/reception/login') }
+      const isAuthenticated = localStorage.getItem('isAuthenticated')
+      if (!isAuthenticated) navigate('/modules')
+    } catch { navigate('/modules') }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(()=>{ try { localStorage.setItem('reception.theme', theme) } catch {} }, [theme])

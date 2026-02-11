@@ -58,10 +58,10 @@ export default function Lab_Layout() {
   const navigate = useNavigate()
   useEffect(() => {
     try {
-      const raw = localStorage.getItem('lab.session')
-      if (!raw) navigate('/lab/login')
+      const isAuthenticated = localStorage.getItem('isAuthenticated')
+      if (!isAuthenticated) navigate('/modules')
     } catch {
-      navigate('/lab/login')
+      navigate('/modules')
     }
   }, [navigate])
   const shell = theme === 'dark' ? 'min-h-dvh bg-slate-900 text-slate-100' : 'min-h-dvh bg-slate-50 text-slate-900'

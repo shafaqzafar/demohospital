@@ -21,10 +21,10 @@ export default function Aesthetic_Layout(){
   const [username, setUsername] = useState<string>('')
   useEffect(()=>{
     try {
-      const raw = localStorage.getItem('aesthetic.session')
-      if (!raw) { navigate('/aesthetic/login'); return }
-      try { const s = JSON.parse(raw||'{}'); setUsername(String(s?.username||'')) } catch {}
-    } catch { navigate('/aesthetic/login') }
+      const isAuthenticated = localStorage.getItem('isAuthenticated')
+      if (!isAuthenticated) { navigate('/modules'); return }
+      try { const s = JSON.parse(localStorage.getItem('aesthetic.session')||'{}'); setUsername(String(s?.username||'')) } catch {}
+    } catch { navigate('/modules') }
   }, [navigate])
 
   const onLogout = async () => {
@@ -33,8 +33,9 @@ export default function Aesthetic_Layout(){
       localStorage.removeItem('aesthetic.token')
       localStorage.removeItem('token')
       localStorage.removeItem('aesthetic.session')
+      // Don't remove isAuthenticated, only remove module-specific data
     } catch {}
-    navigate('/aesthetic/login')
+    navigate('/modules')
   }
 
   const shell = theme === 'dark' ? 'min-h-dvh bg-slate-900 text-slate-100' : 'min-h-dvh bg-slate-50 text-slate-900'

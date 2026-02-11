@@ -46,7 +46,7 @@ export default function Diagnostic_Sidebar({ collapsed = false }: { collapsed?: 
         })}
       </nav>
       <div className="p-3">
-        <button onClick={async () => { try { await diagnosticApi.logout() } catch {} try { localStorage.removeItem('token'); localStorage.removeItem('diagnostic.user') } catch {} navigate('/diagnostic/login') }} className="w-full inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium" style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.14)' }}>
+        <button onClick={async () => { try { await diagnosticApi.logout() } catch {} try { localStorage.removeItem('token'); localStorage.removeItem('diagnostic.user') } catch {} navigate('/modules') }} className="w-full inline-flex items-center justify-center gap-2 rounded-md px-3 py-2 text-sm font-medium" style={{ backgroundColor: 'rgba(255,255,255,0.08)', color: '#ffffff', border: '1px solid rgba(255,255,255,0.14)' }}>
           <LogOut className="h-4 w-4" /> Logout
         </button>
       </div>
